@@ -1,0 +1,41 @@
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Asset;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Catalog;
+
+CREATE TABLE Catalog
+(
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(255),
+    url         VARCHAR(255),
+    description VARCHAR(255),
+    cost1       INT,
+    cost2       INT,
+    cost3       INT,
+    req1        INT,
+    req2        INT,
+    req3        INT,
+    category    INT
+);
+
+CREATE TABLE User
+(
+    address VARCHAR(255) PRIMARY KEY,
+    cash1   FLOAT,
+    cash2   FLOAT,
+    cash3   FLOAT
+);
+
+CREATE TABLE Asset
+(
+    id           INT PRIMARY KEY AUTO_INCREMENT,
+    type         INT CHECK (type IN (1, 2, 3)),
+    level        INT CHECK (level BETWEEN 1 AND 10),
+    user_address VARCHAR(255) REFERENCES User (address)
+);
+
+CREATE TABLE Product
+(
+    id      INT AUTO_INCREMENT PRIMARY KEY,
+    address VARCHAR(255) NOT NULL REFERENCES User (address)
+);

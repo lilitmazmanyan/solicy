@@ -1,0 +1,18 @@
+{
+  "name": "solicy",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon api.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "cors": "2.8.1",
+    "express": "~4.0.0",
+    "mssql": "^6.2.1",
+    "mysql": "^2.18.1",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
