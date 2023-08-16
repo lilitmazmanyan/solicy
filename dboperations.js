@@ -1,3 +1,5 @@
+const sql = require('mysql')
+const config = require('./dbconfig')
 const connection = require('./dbconfig');
 
 async function getCatalogById(catalogId) {
@@ -25,10 +27,20 @@ async function getCatalogById(catalogId) {
 
 async function getUserByAddress(address) {
     try {
-        let pool = await sql.connect(config);
-        let user = await pool.request()
-            .input('input_parameter', sql.VarChar, address)
-            .query("SELECT * FROM [User] WHERE address = @input_parameter");
+        await connection.connect();
+
+        const query = "SELECT * FROM [User] WHERE address = @input_parameter";
+        const request = new sql.request(connection);
+        request.input('input_parameter', sql.VarChar, address);
+
+        const user = await request.query(query, [catalogId]).then(result => {
+            connection.close();
+            resolve(result.recordset);
+        }).catch(error => {
+            connection.close();
+            console.error(error);
+            resolve(null);
+        });
 
         return user.recordset[0];
     } catch (error) {

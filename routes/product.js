@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dbOperations = require('../dboperations');
 
-router.post('/buyProduct', async (req, res) => {
+router.post('/', async (req, res) => {
     const {id, address} = req.body;
 
     try {
